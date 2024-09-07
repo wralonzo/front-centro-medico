@@ -1,0 +1,107 @@
+<div class="header pb-4 pt-1 pt-lg-4 d-flex align-items-center"
+  style="min-height: 10px; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <p class="text-white mt-4 mb-0">Por favor, ingresa la información del nuevo medico</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Boton para crear un nuevo medico -->
+<button class="btn btn-success mt-3 mb-3" *ngIf="botonCrearNuevoMedico"
+  (click)="formularioMedico = true; botonCrearNuevoMedico = false; tablaMedico = false">Crear nuevo
+  Medico
+</button>
+
+<!-- Formulario de Medicos -->
+<div class="container-fluid mt--7" *ngIf="formularioMedico">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="alert alert-success" *ngIf="medicoCreado && !medicoActualizado">
+            Medico creado con éxito!
+          </div>
+          <div class="alert alert-success" *ngIf="medicoActualizado && !medicoCreado">
+            Medico actualizado con éxito!
+          </div>
+          <form (ngSubmit)="registroMedicos(medico_id, especialidad_id)">
+            <div class="form-group">
+              <label for="nombre">Medico</label>
+              <select id="nombre" class="form-control" [(ngModel)]="medico_id" name="medico_id"
+                [disabled]="seEstaActualizando">
+                <option *ngFor="let medico of usuariosRolMedico" [value]="medico.id">{{ medico.nombre + ' ' +
+                  medico.apellido }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nombre">Especialidad</label>
+              <select id="nombre" class="form-control" [(ngModel)]="especialidad_id" name="especialidad_id">
+                <option *ngFor="let especialidad of especialidades" [value]="especialidad.id">{{ especialidad.nombre }}
+                </option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ idMedicoEditar !== null ? 'Actualizar Medico' :
+              'Crear Medico' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla de Medicos -->
+<div class="container-fluid mt-5" *ngIf="tablaMedico">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h2>Lista de Medicos</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Especialdiad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medico of medicos; let i = index">
+              <td>{{ medico.id }}</td>
+              <td>{{ medico.usuario.nombre + ' ' + medico.usuario.apellido }}</td>
+              <td>{{ medico.especialidad.nombre }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="editarMedico(medico)">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminarMedico(medico.id)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="text-center">
+        <nav aria-label="Navegación de página">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link mx-4" (click)="cambiarPagina(currentPage - 1)" aria-disabled="true">Anterior</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">{{ currentPage }}</span>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link mx-4" (click)="cambiarPagina(currentPage + 1)">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

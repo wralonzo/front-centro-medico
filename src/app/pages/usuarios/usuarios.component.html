@@ -1,0 +1,160 @@
+<div class="header pb-4 pt-1 pt-lg-4 d-flex align-items-center"
+  style="min-height: 10px; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <p class="text-white mt-4 mb-0">Por favor, ingresa la información del nuevo usuario</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Boton para crear un nuevo usuario -->
+<button class="btn btn-success mt-3 mb-3" *ngIf="botonCrearNuevoUsuario"
+  (click)="formularioUsuario = true; botonCrearNuevoUsuario = false; tablaUsuarios = false">Crear nuevo usuario
+</button>
+
+<!-- Formulario de Usuarios -->
+<div class="container-fluid mt--7" *ngIf="formularioUsuario">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="alert alert-success" *ngIf="usuarioCreado && !usuarioActualizado">
+            Usuario creado con éxito!
+          </div>
+          <div class="alert alert-success" *ngIf="usuarioActualizado && !usuarioCreado">
+            Usuario actualizado con éxito!
+          </div>
+          <form (ngSubmit)="registroUsuarios(
+            nombre, 
+            apellido, 
+            direccion, 
+            telefono, 
+            fecha_nacimiento, 
+            dpi, 
+            correo_electronico, 
+            contrasenia, 
+            rol
+            )">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="nombre"
+                name="nombre">
+            </div>
+            <div class="form-group">
+              <label for="apellido">Apellido</label>
+              <input type="text" id="apellido" class="form-control" placeholder="Apellido" [(ngModel)]="apellido"
+                name="apellido">
+            </div>
+            <div class="form-group">
+              <label for="direccion">Direccion</label>
+              <input type="text" id="direccion" class="form-control" placeholder="Direccion" [(ngModel)]="direccion"
+                name="direccion">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Telefono</label>
+              <input type="text" id="telefono" class="form-control" placeholder="Telefono" [(ngModel)]="telefono"
+                name="telefono">
+            </div>
+            <div class="form-group">
+              <label for="fecha_nacimiento">Fecha Nacimiento</label>
+              <input type="date" id="fecha_nacimiento" class="form-control" placeholder="Fecha Nacimiento"
+                [(ngModel)]="fecha_nacimiento" name="fecha_nacimiento">
+            </div>
+            <div class="form-group">
+              <label for="dpi">DPI</label>
+              <input type="text" id="dpi" class="form-control" placeholder="DPI" [(ngModel)]="dpi" name="dpi">
+            </div>
+            <div class="form-group">
+              <label for="correo_electronico">Correo Electrónico</label>
+              <input type="email" id="correo_electronico" class="form-control" placeholder="Correo Electrónico"
+                [(ngModel)]="correo_electronico" name="correo_electronico">
+            </div>
+            <div class="form-group">
+              <label for="contrasenia">Contraseña</label>
+              <input type="password" id="contrasenia" class="form-control" placeholder="Contraseña"
+                [(ngModel)]="contrasenia" name="contrasenia">
+            </div>
+            <div class="form-group">
+              <label for="rol">Rol</label>
+              <select id="rol" class="form-control" [(ngModel)]="rol" name="rol">
+                <option value="SUPER_ADMINISTRADOR">SUPER_ADMINISTRADOR</option>
+                <option value="MEDICO">MEDICO</option>
+                <option value="SECRETARIA">SECRETARIA</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ idUsuarioEditar !== null ? 'Actualizar Usuario' :
+              'CrearUsuario' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla de Usuarios -->
+<div class="container-fluid mt-5" *ngIf="tablaUsuarios">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h2>Lista de usuarios</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Direccion</th>
+              <th>Telefono</th>
+              <th>Fecha Nacimiento</th>
+              <th>DPI</th>
+              <th>Correo Electronico</th>
+              <th>Rol</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios; let i = index">
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.apellido }}</td>
+              <td>{{ usuario.direccion }}</td>
+              <td>{{ usuario.telefono }}</td>
+              <td>{{ usuario.fecha_nacimiento }}</td>
+              <td>{{ usuario.dpi }}</td>
+              <td>{{ usuario.correo_electronico }}</td>
+              <td>{{ usuario.rol }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="editarUsuario(usuario)">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="text-center">
+        <nav aria-label="Navegación de página">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link mx-4" (click)="cambiarPagina(currentPage - 1)" aria-disabled="true">Anterior</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">{{ currentPage }}</span>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link mx-4" (click)="cambiarPagina(currentPage + 1)">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CitasComponent } from 'src/app/pages/citas/citas';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { EspecialidadesComponent } from 'src/app/pages/especialidades/especialidades.component';
 import { MedicosComponent } from 'src/app/pages/medicos/medicos.component';
@@ -11,4 +12,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'pacientes', component: PacientesComponent },
   { path: 'especialidades', component: EspecialidadesComponent },
   { path: 'medicos', component: MedicosComponent },
+  { path: 'citas', component: CitasComponent },
 ];

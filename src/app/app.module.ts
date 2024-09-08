@@ -17,6 +17,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { PacientesComponent } from './pages/pacientes/pacientes.component';
 import { EspecialidadesComponent } from './pages/especialidades/especialidades.component';
 import { MedicosComponent } from './pages/medicos/medicos.component';
+import { CitasComponent } from './pages/citas/citas';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { MedicosComponent } from './pages/medicos/medicos.component';
     PacientesComponent,
     EspecialidadesComponent,
     MedicosComponent,
+    CitasComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

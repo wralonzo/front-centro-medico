@@ -5,6 +5,7 @@ import { EspecialidadesComponent } from 'src/app/pages/especialidades/especialid
 import { MedicosComponent } from 'src/app/pages/medicos/medicos.component';
 import { PacientesComponent } from 'src/app/pages/pacientes/pacientes.component';
 import { UsuariosComponent } from 'src/app/pages/usuarios/usuarios.component';
+import { ProductoComponent } from '../../pages/productos/producto';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -13,4 +14,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'especialidades', component: EspecialidadesComponent },
   { path: 'medicos', component: MedicosComponent },
   { path: 'citas', component: CitasComponent },
+  { path: 'productos', component: ProductoComponent },
 ];

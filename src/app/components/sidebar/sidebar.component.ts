@@ -52,6 +52,13 @@ export const ROUTES: RouteInfo[] = [
     class: "",
     roles: ["SUPER_ADMINISTRADOR", "MEDICO", "SECRETARIA"],
   },
+  {
+    path: "/productos",
+    title: "Productos",
+    icon: "ni ni-circle-08 text-info",
+    class: "",
+    roles: ["SUPER_ADMINISTRADOR", "MEDICO", "SECRETARIA"],
+  },
 ];
 
 @Component({

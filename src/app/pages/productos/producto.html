@@ -7,12 +7,12 @@
   "
 >
   <!-- Mask -->
-  <span class="mask bg-gradient-blue opacity-8"></span>
+  <span class="mask bg-gradient-blue opacity-9"></span>
   <!-- Header container -->
   <div class="container-fluid d-flex align-items-center">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <p class="text-white mt-4 mb-0">Módulo para la gestión de citas</p>
+        <p class="text-white mt-4 mb-0">Módulo para la gestión de productos</p>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
   *ngIf="!formularioPaciente"
   (click)="formularioPaciente = true; botonCrearNuevoPaciente = false; tablaPaciente = false"
 >
-  Crear nueva cita
+  Crear nuevo producto
 </button>
 
 <!-- Formulario de Pacientes -->
@@ -37,111 +37,67 @@
             class="alert alert-success"
             *ngIf="pacienteCreado && !pacienteActualizado"
           >
-            Cita creadq con éxito!
+            Producto creado con éxito!
           </div>
           <div
             class="alert alert-success"
             *ngIf="pacienteActualizado && !pacienteCreado"
           >
-            Cita actualizada con éxito!
+          Producto actualizado con éxito!
           </div>
-          <form (ngSubmit)="!cita.id ? registroCita() : updateCita()">
+          <form (ngSubmit)="!producto.id ? registroCita() : updateCita()">
+
             <div class="form-group">
-              <label for="paciente">Citas</label>
-              <select
-                id="paciente"
+              <label for="fecha">Nombre</label>
+              <input
+                type="text"
+                id="nombre"
                 class="form-control"
-                [(ngModel)]="cita.paciente_id"
-                name="paciente_id"
-              >
-                <option value="0" selected>Seleccion un paciente</option>
-                <option
-                  *ngFor="let paciente of pacientes"
-                  [value]="paciente.id"
-                >
-                  {{ paciente.nombre}}
-                </option>
-              </select>
+                placeholder="nombre"
+                [(ngModel)]="producto.nombre"
+                name="nombre"
+              />
             </div>
 
             <div class="form-group">
-              <label for="medico">Medicos</label>
-              <select
-                id="medico"
-                class="form-control"
-                [(ngModel)]="cita.medico_id"
-                name="medico"
-              >
-                <option value="0" selected>Seleccion un medico</option>
-                <option *ngFor="let medico of medicos" [value]="medico.id">
-                  {{ medico.usuario.nombre}}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="fecha">Fecha</label>
+              <label for="fecha">Fecha vencimiento</label>
               <input
                 type="date"
                 id="fecha"
                 class="form-control"
                 placeholder="Fecha"
-                [(ngModel)]="cita.fecha"
+                [(ngModel)]="producto.fechaVencimiento"
                 name="fecha"
               />
             </div>
+
             <div class="form-group">
-              <label for="HoraEntrada">Hora entrada</label>
+              <label for="precio">Precio</label>
               <input
-                type="time"
-                id="hora_entrada"
+                type="number"
+                id="precio"
                 class="form-control"
-                placeholder="Hora entrada"
-                [(ngModel)]="cita.hora_entrada"
-                name="hora_entrada"
+                placeholder="Precio"
+                [(ngModel)]="producto.precio"
+                name="precio"
               />
             </div>
 
             <div class="form-group">
-              <label for="salida">Hora Salida</label>
+              <label for="precio">Existencia</label>
               <input
-                type="time"
-                id="hora_entrada"
+                type="number"
+                id="existencia"
                 class="form-control"
-                placeholder="Hora salida"
-                [(ngModel)]="cita.hora_salida"
-                name="saluda"
+                placeholder="Existencia"
+                [(ngModel)]="producto.existencia"
+                name="existencia"
               />
             </div>
-
-            <div class="form-group">
-              <label for="telefono">Nota</label>
-              <input
-                type="text"
-                id="hora_salida"
-                class="form-control"
-                placeholder="Nota"
-                [(ngModel)]="cita.nota"
-                name="hora_salida"
-              />
-            </div>
-            <div class="form-group">
-              <label for="nombre">Estado</label>
-              <select
-                id="nombre"
-                class="form-control"
-                [(ngModel)]="cita.estado"
-                name="medico_id"
-              >
-                <option value="">Seleccion un estado</option>
-                <option value="CONFIRMADA">CONFIRMADA</option>
-                <option value="PENDIENTE">PENDIENTE</option>
-                <option value="CANCELADA">CANCELADA</option>
-              </select>
-            </div>
+            
 
             <button type="submit" class="btn btn-primary">
-              {{ cita.id ? 'Actualizar Cita' : 'Crear Cita' }}
+              {{ producto.id ? 'Actualizar Producto' : 'Crear Producto' }}
             </button>
             <button
               type="button"
@@ -161,33 +117,26 @@
 <div class="container-fluid mt-5" *ngIf="!formularioPaciente">
   <div class="row justify-content-center">
     <div class="col-lg-10">
-      <h2>Lista de Citas</h2>
-      <div *ngFor="let paciente of pacientes">{{paciente.id}}test</div>
+      <h2>Lista de productos</h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
-              <th>Paciente</th>
-              <th>Medico</th>
-              <th>Fecha</th>
-              <th>Hora inicio</th>
-              <th>Hora salida</th>
-              <th>Nota</th>
-              <th>Estado</th>
+              <th>Nombre</th>
+              <th>Fecha vencimiento</th>
+              <th>Precio</th>
+              <th>Existencia</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let paciente of citas">
+            <tr *ngFor="let paciente of productos">
               <td>{{ paciente.id }}</td>
-              <td>{{ paciente.paciente_id }}</td>
-              <td>{{ paciente.medico_id }}</td>
-              <td>{{ paciente.fecha }}</td>
-              <td>{{ paciente.hora_entrada }}</td>
-              <td>{{ paciente.hora_salida }}</td>
-              <td>{{ paciente.nota }}</td>
-              <td>{{ paciente.estado }}</td>
+              <td>{{ paciente.nombre }}</td>
+              <td>{{ paciente.fechaVencimiento  }}</td>
+              <td>{{ paciente.precio }}</td>
+              <td>{{ paciente.existencia }}</td>
               <td>
                 <button
                   class="btn btn-primary btn-sm"

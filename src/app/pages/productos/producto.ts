@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductoService } from "./producto.service";
 import { IProductos } from "src/shared/intefaces/citas.interface";
+import { API_BASE_URL } from "src/api.config";
 
 @Component({
   selector: "app-producto",
@@ -19,6 +20,7 @@ export class ProductoComponent implements OnInit {
   public formularioPaciente: boolean = false;
   public botonCrearNuevoPaciente: boolean = true;
   public tablaPaciente: boolean = true;
+  public urlPdf = `${API_BASE_URL}/producto/generate/pdf`;
   public producto: IProductos = {
     id: 0,
     nombre: "",

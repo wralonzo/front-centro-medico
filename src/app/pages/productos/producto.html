@@ -43,10 +43,9 @@
             class="alert alert-success"
             *ngIf="pacienteActualizado && !pacienteCreado"
           >
-          Producto actualizado con éxito!
+            Producto actualizado con éxito!
           </div>
           <form (ngSubmit)="!producto.id ? registroCita() : updateCita()">
-
             <div class="form-group">
               <label for="fecha">Nombre</label>
               <input
@@ -94,7 +93,6 @@
                 name="existencia"
               />
             </div>
-            
 
             <button type="submit" class="btn btn-primary">
               {{ producto.id ? 'Actualizar Producto' : 'Crear Producto' }}
@@ -118,6 +116,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-10">
       <h2>Lista de productos</h2>
+      <a class="btn btn-primary" [href]="urlPdf" target="_blank">Reporte pdf</a>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -134,7 +133,7 @@
             <tr *ngFor="let paciente of productos">
               <td>{{ paciente.id }}</td>
               <td>{{ paciente.nombre }}</td>
-              <td>{{ paciente.fechaVencimiento  }}</td>
+              <td>{{ paciente.fechaVencimiento }}</td>
               <td>{{ paciente.precio }}</td>
               <td>{{ paciente.existencia }}</td>
               <td>

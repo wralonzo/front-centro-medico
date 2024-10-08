@@ -1,20 +1,36 @@
-<div class="header pb-4 pt-1 pt-lg-4 d-flex align-items-center"
-  style="min-height: 10px; background-size: cover; background-position: center top;">
+<div
+  class="header pb-4 pt-1 pt-lg-4 d-flex align-items-center"
+  style="
+    min-height: 10px;
+    background-size: cover;
+    background-position: center top;
+  "
+>
   <!-- Mask -->
   <span class="mask bg-gradient-blue opacity-8"></span>
   <!-- Header container -->
   <div class="container-fluid d-flex align-items-center">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <p class="text-white mt-4 mb-0">Por favor, ingresa la información del nuevo paciente</p>
+        <p class="text-white mt-4 mb-0">
+          Por favor, ingresa la información del nuevo paciente
+        </p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Boton para crear un nuevo paciente -->
-<button class="btn btn-success mt-3 mb-3" *ngIf="botonCrearNuevoPaciente"
-  (click)="formularioPaciente = true; botonCrearNuevoPaciente = false; tablaPaciente = false">Crear nuevo paciente
+<button
+  class="btn btn-success mt-3 mb-3"
+  *ngIf="botonCrearNuevoPaciente"
+  (click)="
+    formularioPaciente = true;
+    botonCrearNuevoPaciente = false;
+    tablaPaciente = false
+  "
+>
+  Crear nuevo paciente
 </button>
 
 <!-- Formulario de Pacientes -->
@@ -23,53 +39,110 @@
     <div class="col-lg-6">
       <div class="card shadow">
         <div class="card-body">
-          <div class="alert alert-success" *ngIf="pacienteCreado && !pacienteActualizado">
+          <div
+            class="alert alert-success"
+            *ngIf="pacienteCreado && !pacienteActualizado"
+          >
             Paciente creado con éxito!
           </div>
-          <div class="alert alert-success" *ngIf="pacienteActualizado && !pacienteCreado">
+          <div
+            class="alert alert-success"
+            *ngIf="pacienteActualizado && !pacienteCreado"
+          >
             Paciente actualizado con éxito!
           </div>
-          <form (ngSubmit)="registroPaciente(
-            nombre, 
-            apellido, 
-            direccion, 
-            telefono, 
-            fecha_nacimiento, 
-            dpi
-            )">
+          <form
+            (ngSubmit)="
+              registroPaciente(
+                nombre,
+                apellido,
+                direccion,
+                telefono,
+                fecha_nacimiento,
+                dpi
+              )
+            "
+          >
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input type="text" id="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="nombre"
-                name="nombre">
+              <input
+                type="text"
+                id="nombre"
+                class="form-control"
+                placeholder="Nombre"
+                [(ngModel)]="nombre"
+                name="nombre"
+              />
             </div>
             <div class="form-group">
               <label for="apellido">Apellido</label>
-              <input type="text" id="apellido" class="form-control" placeholder="Apellido" [(ngModel)]="apellido"
-                name="apellido">
+              <input
+                type="text"
+                id="apellido"
+                class="form-control"
+                placeholder="Apellido"
+                [(ngModel)]="apellido"
+                name="apellido"
+              />
             </div>
             <div class="form-group">
               <label for="direccion">Direccion</label>
-              <input type="text" id="direccion" class="form-control" placeholder="Direccion" [(ngModel)]="direccion"
-                name="direccion">
+              <input
+                type="text"
+                id="direccion"
+                class="form-control"
+                placeholder="Direccion"
+                [(ngModel)]="direccion"
+                name="direccion"
+              />
             </div>
             <div class="form-group">
               <label for="telefono">Telefono</label>
-              <input type="text" id="telefono" class="form-control" placeholder="Telefono" [(ngModel)]="telefono"
-                name="telefono">
+              <input
+                type="text"
+                id="telefono"
+                class="form-control"
+                placeholder="Telefono"
+                [(ngModel)]="telefono"
+                name="telefono"
+              />
             </div>
             <div class="form-group">
               <label for="fecha_nacimiento">Fecha Nacimiento</label>
-              <input type="date" id="fecha_nacimiento" class="form-control" placeholder="Fecha Nacimiento"
-                [(ngModel)]="fecha_nacimiento" name="fecha_nacimiento">
+              <input
+                type="date"
+                id="fecha_nacimiento"
+                class="form-control"
+                placeholder="Fecha Nacimiento"
+                [(ngModel)]="fecha_nacimiento"
+                name="fecha_nacimiento"
+              />
             </div>
             <div class="form-group">
               <label for="dpi">DPI</label>
-              <input type="text" id="dpi" class="form-control" placeholder="DPI" [(ngModel)]="dpi" name="dpi">
+              <input
+                type="text"
+                id="dpi"
+                class="form-control"
+                placeholder="DPI"
+                [(ngModel)]="dpi"
+                name="dpi"
+              />
             </div>
-            <button type="submit" class="btn btn-primary">{{ idPacienteEditar !== null ? 'Actualizar Paciente' :
-              'Crear Paciente' }}
+            <button type="submit" class="btn btn-primary">
+              {{
+                idPacienteEditar !== null
+                  ? "Actualizar Paciente"
+                  : "Crear Paciente"
+              }}
             </button>
-            <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelarEdicion()"
+            >
+              Cancelar
+            </button>
           </form>
         </div>
       </div>
@@ -106,8 +179,26 @@
               <td>{{ paciente.fecha_nacimiento }}</td>
               <td>{{ paciente.dpi }}</td>
               <td>
-                <button class="btn btn-primary btn-sm" (click)="editarPaciente(paciente)">Editar</button>
-                <button class="btn btn-danger btn-sm" (click)="eliminarPaciente(paciente.id)">Eliminar</button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="editarPaciente(paciente)"
+                >
+                  Editar
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="eliminarPaciente(paciente.id)"
+                >
+                  Eliminar
+                </button>
+                <button
+                  class="btn btn-success btn-sm"
+                  [href]="urlPdf"
+                  target="_blank"
+                  (click)="navigateOpenBlank(paciente.id)"
+                >
+                  Reporte
+                </button>
               </td>
             </tr>
           </tbody>
@@ -119,13 +210,20 @@
         <nav aria-label="Navegación de página">
           <ul class="pagination justify-content-center">
             <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link mx-4" (click)="cambiarPagina(currentPage - 1)" aria-disabled="true">Anterior</a>
+              <a
+                class="page-link mx-4"
+                (click)="cambiarPagina(currentPage - 1)"
+                aria-disabled="true"
+                >Anterior</a
+              >
             </li>
             <li class="page-item active" aria-current="page">
               <span class="page-link">{{ currentPage }}</span>
             </li>
             <li class="page-item" [class.disabled]="currentPage === totalPages">
-              <a class="page-link mx-4" (click)="cambiarPagina(currentPage + 1)">Siguiente</a>
+              <a class="page-link mx-4" (click)="cambiarPagina(currentPage + 1)"
+                >Siguiente</a
+              >
             </li>
           </ul>
         </nav>

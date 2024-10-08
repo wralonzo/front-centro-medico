@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { PacientesService } from './pacientes.service';
+import { Component, OnInit } from "@angular/core";
+import { PacientesService } from "./pacientes.service";
+import { API_BASE_URL } from "src/api.config";
 
 @Component({
-  selector: 'app-pacientes',
-  templateUrl: './pacientes.component.html',
-  styleUrls: ['./pacientes.component.scss']
+  selector: "app-pacientes",
+  templateUrl: "./pacientes.component.html",
+  styleUrls: ["./pacientes.component.scss"],
 })
 export class PacientesComponent implements OnInit {
   // Definicion de propiedades
@@ -26,14 +27,17 @@ export class PacientesComponent implements OnInit {
   idPacienteEditar: number | null = null;
 
   // Constructor
-  constructor(private pacienteService: PacientesService) {
-  }
+  constructor(private pacienteService: PacientesService) {}
 
   // Definciion de metodos
   ngOnInit(): void {
     this.listadoPacientes();
   }
 
+  navigateOpenBlank(id: number) {
+    const urlPdf = `${API_BASE_URL}/cita/paciente/pdf/${id}`;
+    window.open(urlPdf, '_blank');
+  }
   registroPaciente(
     nombre: string,
     apellido: string,
@@ -55,23 +59,25 @@ export class PacientesComponent implements OnInit {
       this.limpiarCampos();
       this.ocultarAlerta();
     } else {
-      this.pacienteService.registroPacientes(
-        nombre,
-        apellido,
-        direccion,
-        telefono,
-        fecha_nacimiento,
-        dpi
-      ).subscribe(
-        () => {
-          this.pacienteCreado = true;
-          this.limpiarCampos();
-          this.ocultarAlerta()
-        },
-        (error) => {
-          console.error('Error en el registro del usuario:', error);
-        }
-      )
+      this.pacienteService
+        .registroPacientes(
+          nombre,
+          apellido,
+          direccion,
+          telefono,
+          fecha_nacimiento,
+          dpi
+        )
+        .subscribe(
+          () => {
+            this.pacienteCreado = true;
+            this.limpiarCampos();
+            this.ocultarAlerta();
+          },
+          (error) => {
+            console.error("Error en el registro del usuario:", error);
+          }
+        );
     }
   }
 
@@ -84,33 +90,35 @@ export class PacientesComponent implements OnInit {
     fecha_nacimiento: string,
     dpi: string
   ) {
-    this.pacienteService.actualizarPaciente(
-      id,
-      nombre,
-      apellido,
-      direccion,
-      telefono,
-      fecha_nacimiento,
-      dpi
-    ).subscribe(
-      () => {
-        this.pacienteActualizado = true;
-        this.listadoPacientes();
-      },
-      (error) => {
-        console.error('Error al actualizar el paciente:', error);
-      }
-    );
+    this.pacienteService
+      .actualizarPaciente(
+        id,
+        nombre,
+        apellido,
+        direccion,
+        telefono,
+        fecha_nacimiento,
+        dpi
+      )
+      .subscribe(
+        () => {
+          this.pacienteActualizado = true;
+          this.listadoPacientes();
+        },
+        (error) => {
+          console.error("Error al actualizar el paciente:", error);
+        }
+      );
   }
 
   eliminarPaciente(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este paciente?')) {
+    if (confirm("¿Estás seguro de que deseas eliminar este paciente?")) {
       this.pacienteService.eliminarPaciente(id).subscribe(
         () => {
           this.listadoPacientes();
         },
         (error) => {
-          console.error('Error al eliminar el paciente:', error);
+          console.error("Error al eliminar el paciente:", error);
         }
       );
     }
@@ -130,14 +138,14 @@ export class PacientesComponent implements OnInit {
         this.pacientes = response.pacientes;
       },
       (error) => {
-        console.error('Error al obtener la lista de pacientes:', error);
+        console.error("Error al obtener la lista de pacientes:", error);
       }
     );
   }
 
   limpiarCampos() {
-    this.nombre = '';
-    this.apellido = '';
+    this.nombre = "";
+    this.apellido = "";
     this.direccion = "";
     this.telefono = "";
     this.fecha_nacimiento = "";
